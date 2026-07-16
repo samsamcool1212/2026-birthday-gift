@@ -1,0 +1,520 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Dimension by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+        
+        <style>
+            .custom-img-container {
+                display: block;
+                width: 100%;
+                max-width: 350px; /* 電腦版最大寬度，避免過大 */
+                margin: 0 auto 1.5rem auto; /* 水平置中 */
+            }
+            .custom-img-container img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px; /* 加上微圓角更有質感 */
+            }
+            /* 當螢幕小於 480px (手機) 時，自動撐滿版面 */
+            @media screen and (max-width: 480px) {
+                .custom-img-container {
+                    max-width: 100%;
+                }
+                /* 微調手機上的按鈕間距 */
+                #love-test-container {
+                    padding: 1.5rem 1rem !important;
+                }
+            }
+        </style>
+	</head>
+	<body class="is-preload">
+
+	<div id="wrapper">
+
+    <header id="header">
+        <div class="logo">
+            <span class="icon fa-heart"></span>
+        </div>
+        <div class="content">
+            <div class="inner">
+                <h1>MISSION: Ultraman SamSam <br>& Feli</h1>
+                <p>一封來自宇宙的限時信件</p>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#stage1" id="btn-start">Tap to Start</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="main">
+
+        <article id="stage1">
+            <h2 class="major">The Connection</h2>
+            <p>我們的故事，不是在街角，也不是朋友介紹。<br>
+            如何開啟這段感情的鑰匙？h開頭o結尾，但是不是hippo 🦛</p>
+            
+            <div id="stage1-error-img-container" class="custom-img-container" style="display:none;">
+                <img src="images/hello.jpg" alt="Warning" />
+            </div>
+
+            <form id="form-stage1">
+                <div class="fields">
+                    <div class="field">
+                        <input type="text" id="input-password" placeholder="請輸入通關密語..." autocomplete="off" />
+                    </div>
+                </div>
+                <ul class="actions">
+                    <li><button type="submit" class="primary">確認送出</button></li>
+                </ul>
+            </form>
+            <p id="msg-stage1" style="display:none; color: #ffeb3b; font-weight: bold;"></p>
+        </article>
+
+        <article id="stage2">
+            <h2 class="major">One Question</h2>
+            <p>在我們繼續這趟旅程之前，宇宙總部要求進行最後的安全確認：</p>
+            
+            <div id="love-test-container" style="text-align: center; margin: 2.5rem 0; padding: 2rem 1.5rem; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                <p style="font-weight: bold; margin-bottom: 2rem; font-size: 1.5rem; color: #fff;">妳愛我嗎？<br>(Do you love me?)</p>
+                <div style="display: flex; justify-content: center; gap: 30px; align-items: center; min-height: 80px;">
+                    <button id="btn-love-yes" class="primary" style="font-size: 1.2rem; padding: 0 2rem;">Yes ❤️</button>
+                    <button id="btn-love-no" class="button" style="font-size: 1.2rem; padding: 0 2rem; transition: transform 0.1s ease-out; position: relative; z-index: 100;">No 💔</button>
+                </div>
+                <p id="msg-love" style="display:none; color: #4caf50; margin-top: 20px; font-size: 1.1rem; font-weight: bold;"></p>
+            </div>
+        </article>
+
+        <article id="stage3">
+            <h2 class="major">The Journey</h2>
+            <span class="image main"><img src="images/korea-to-taiwan.jpg" alt="Korea to Taiwan" /></span>
+            <p>印尼、韓國、台灣隔著海洋。直到有一天，妳跨越了海洋，只為了見我一面。</p>
+            
+            <p>回想第一次見面，按住下方的心跳不要放開：</p>
+            
+            <button id="btn-heartbeat" class="primary" style="width: 100%; height: 80px; font-size: 1.2rem; user-select: none; -webkit-touch-callout: none;">
+                💓 長按 3 秒
+            </button>
+            <div id="progress-bar-container" style="width: 100%; height: 5px; background: rgba(255,255,255,0.2); margin-top: 15px; border-radius: 3px; display:none;">
+                <div id="progress-bar" style="width: 0%; height: 100%; background: #ff4757; border-radius: 3px;"></div>
+            </div>
+            <p id="msg-stage3" style="display:none; color: #ffeb3b; margin-top: 15px; font-weight: bold;"></p>
+        </article>
+
+        <article id="stage4">
+            <h2 class="major">Survival Game</h2>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start;">
+                <div style="flex: 1 1 280px;">
+                    <p>情境：你不小心滑手機太入迷，沒理她，她生氣了。<br>請選擇如何讓她不生氣：</p>
+
+                    <form id="form-stage4">
+                        <div class="field">
+                            <input type="radio" id="ansA" name="survival" value="A">
+                            <label for="ansA">A. 安撫她拍拍抱抱</label>
+                        </div>
+                        <div class="field">
+                            <input type="radio" id="ansB" name="survival" value="B">
+                            <label for="ansB">B. 直接道歉，下次不敢了</label>
+                        </div>
+                        <div class="field">
+                            <input type="radio" id="ansC" name="survival" value="C">
+                            <label for="ansC">C. 給雙方一點空間冷靜</label>
+                        </div>
+                        <div class="field">
+                            <input type="radio" id="ansD" name="survival" value="D">
+                            <label for="ansD">D. 看到路邊有好吃的買給她</label>
+                        </div>
+                        <ul class="actions" style="margin-top: 20px;">
+                            <li><button type="submit" class="primary" id="btn-submit-stage4">確認選擇</button></li>
+                            <li><a href="#stage5" class="button primary" id="btn-next-stage5" style="display:none;">進入最終章 🚀</a></li>
+                        </ul>
+                    </form>
+                    <p id="msg-stage4" style="display:none; color: #ffeb3b; font-weight: bold; line-height: 1.5;"></p>
+                </div>
+                
+                <div style="flex: 1 1 250px; width: 100%;">
+                    <div id="stage4-default-img" class="custom-img-container">
+                        <img src="images/mad.jpg" alt="She is mad" />
+                    </div>
+                    <div id="stage4-result-img-container" class="custom-img-container" style="display:none;">
+                        <img id="stage4-result-img" src="" alt="Result" />
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="stage5">
+            <h2 class="major">Mission Accomplished</h2>
+            <div class="custom-img-container">
+                <img src="images/ultraman.jpg" alt="Ultraman Saved The World" />
+            </div>
+            <blockquote>"Love is not love which alters when it alteration finds."</blockquote>
+            <p>宇宙二十年前交給我的任務，我終於可以回答了：「我找到她了。」</p>
+            
+            <div id="gift-container" style="text-align: center; margin: 40px 0;">
+                <div id="btn-gift" style="font-size: 5rem; cursor: pointer; display: inline-block; transition: transform 0.2s ease-in-out;">🎁</div>
+                <p style="margin-top:10px;">點擊打開給 20 歲的 Feli</p>
+            </div>
+
+            <div id="final-letter" style="display: none; opacity: 0; transition: opacity 1.5s ease-in-out;">
+                <div style="text-align: center; margin: 20px 0 40px 0;">
+                    <button id="btn-play-voice" class="primary icon solid fa-play" style="width: 100%;">點擊聆聽專屬語音</button>
+                </div>
+                <p>祝妳 20 歲生日快樂，也祝我們一週年快樂。</p>
+                <p>未來的日子，我都會像這些關卡一樣，陪妳一起破關。朝著台大 Business Administration 前進吧，妳一定可以的！</p>
+            </div>
+        </article>
+    </div>
+
+    <footer id="footer">
+        <p class="copyright">&copy; 2026 Samuel Wu. All rights reserved.</p>
+    </footer>
+
+</div>
+
+<audio id="sfx-ultraman" src="audio/ultraman.mp3" preload="auto"></audio>
+<audio id="bgm" src="audio/bgm.mp3" loop preload="auto"></audio>
+<audio id="voice-msg" src="audio/voice.mp3" preload="auto"></audio>
+<audio id="sfx-wrong" src="audio/omgsry.mp3" preload="auto"></audio>
+<audio id="sfx-hello" src="audio/hello.mp3" preload="auto"></audio>
+
+<div style="display:none;">
+    <img src="images/hello.jpg" alt="preload" />
+    <img src="images/mad.jpg" alt="preload" />
+    <img src="images/udumb.jpg" alt="preload" />
+    <img src="images/chat.jpg" alt="preload" />
+    <img src="images/angry.jpg" alt="preload" />
+    <img src="images/foodie.jpg" alt="preload" />
+    <img src="images/ultraman.jpg" alt="preload" />
+</div>
+
+		<div id="bg"></div>
+
+		<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+        
+        <script>
+            // ==========================================
+            // 聲音元件初始化
+            // ==========================================
+            const sfxUltraman = document.getElementById('sfx-ultraman');
+            const bgm = document.getElementById('bgm'); 
+            const voiceMsg = document.getElementById('voice-msg');
+            const sfxWrong = document.getElementById('sfx-wrong'); 
+            const sfxHello = document.getElementById('sfx-hello'); 
+            bgm.volume = 0.5; 
+
+            // ==========================================
+            // 畫面 0：Tap to Start 控制邏輯
+            // ==========================================
+            document.getElementById('btn-start').addEventListener('click', function(e) {
+                e.preventDefault(); 
+                sfxUltraman.play(); 
+                setTimeout(() => {
+                    bgm.play(); 
+                    window.location.hash = '#stage1'; 
+                }, 1500);
+            });
+
+            // ==========================================
+            // 畫面 1：通關密語與禁詞過濾邏輯
+            // ==========================================
+            const formStage1 = document.getElementById('form-stage1');
+            const stage1ErrorImg = document.getElementById('stage1-error-img-container');
+
+            formStage1.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                const inputVal = document.getElementById('input-password').value.trim().toLowerCase();
+                const msgEl = document.getElementById('msg-stage1');
+                stage1ErrorImg.style.display = 'none';
+                
+                if (inputVal.includes('nigga') || inputVal.includes('nigger')) {
+                    sfxHello.currentTime = 0; 
+                    sfxHello.play();
+                    stage1ErrorImg.style.display = 'block';
+                    msgEl.style.display = 'block';
+                    msgEl.style.color = '#ff4757';
+                    msgEl.innerText = '為什麼可以開這種爛玩笑';
+                }
+                else if (inputVal === 'hello') {
+                    msgEl.style.display = 'block';
+                    msgEl.style.color = '#4caf50'; 
+                    msgEl.innerText = '誰也沒想到，那句練習英文的 Hello，最後會變成「我愛妳」。';
+                    setTimeout(() => {
+                        window.location.hash = '#stage2'; 
+                    }, 3000);
+                } else {
+                    msgEl.style.display = 'block';
+                    msgEl.style.color = '#ffeb3b';
+                    msgEl.innerText = 'Aint this one you dumb？hint：H...o';
+                }
+            });
+
+            // ==========================================
+            // 💡 畫面 2：終極距離感測防禦系統 (手機/電腦共通)
+            // ==========================================
+            const btnLoveYes = document.getElementById('btn-love-yes');
+            const btnLoveNo = document.getElementById('btn-love-no');
+            const msgLove = document.getElementById('msg-love');
+            let isMoving = false;
+
+            // 位移驅動引擎
+            const triggerEvasion = () => {
+                if (isMoving) return; // 冷卻時間防呆
+                isMoving = true;
+                const randomX = Math.floor(Math.random() * 260) - 130;
+                const randomY = Math.floor(Math.random() * 160) - 80;
+                btnLoveNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                setTimeout(() => { isMoving = false; }, 150); // 150ms 後允許再次位移
+            };
+
+            // 歐幾里得距離雷達 (Proximity Radar)
+            const checkProximity = (clientX, clientY) => {
+                if (btnLoveNo.style.display === 'none') return;
+                
+                const rect = btnLoveNo.getBoundingClientRect();
+                if (rect.width === 0) return; // 元素若被隱藏則跳過
+
+                // 計算按鈕圓心
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                // 計算座標距離
+                const dist = Math.hypot(clientX - centerX, clientY - centerY);
+
+                // 🚨 力場設定：只要手指或游標進入 100px 半徑範圍內，按鈕瞬間開溜！
+                if (dist < 100) {
+                    triggerEvasion();
+                }
+            };
+
+            // 電腦版全域滑鼠偵測
+            document.addEventListener('mousemove', (e) => {
+                checkProximity(e.clientX, e.clientY);
+            });
+
+            // 手機版全域觸控偵測
+            document.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                checkProximity(touch.clientX, touch.clientY);
+            }, {passive: true});
+
+            // 💡 被破解的極端情況處理
+            btnLoveNo.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('ayo u dumb ass 給我重選');
+            });
+
+            btnLoveYes.addEventListener('click', function(e) {
+                e.preventDefault();
+                btnLoveNo.style.display = 'none'; 
+                btnLoveYes.disabled = true;
+                btnLoveYes.innerText = 'Me too! 🥰';
+                msgLove.style.display = 'block';
+                msgLove.innerText = '就知道妳最愛我了，載入下一個回憶中... 🚀';
+                
+                setTimeout(() => {
+                    window.location.hash = '#stage3';
+                }, 2000);
+            });
+
+            // ==========================================
+            // 畫面 3：長按心跳 3 秒控制邏輯
+            // ==========================================
+            const btnHeartbeat = document.getElementById('btn-heartbeat');
+            const progressBarContainer = document.getElementById('progress-bar-container');
+            const progressBar = document.getElementById('progress-bar');
+            const msgStage3 = document.getElementById('msg-stage3'); 
+
+            let pressTimer = null;     
+            let progressInterval = null; 
+            let progressWidth = 0;     
+            const requiredTime = 3000; 
+            const sampleRate = 30;     
+
+            function startPress(e) {
+                if (e.type === 'touchstart') e.preventDefault();
+                cancelPress();
+
+                progressBarContainer.style.display = 'block';
+                progressBar.style.width = '0%';
+                progressWidth = 0;
+                btnHeartbeat.innerText = '💓 偵測心跳中...';
+
+                const totalSteps = requiredTime / sampleRate; 
+                const stepIncrement = 100 / totalSteps;       
+
+                progressInterval = setInterval(() => {
+                    progressWidth += stepIncrement;
+                    if (progressWidth >= 100) {
+                        progressBar.style.width = '100%';
+                        clearInterval(progressInterval);
+                    } else {
+                        progressBar.style.width = progressWidth + '%';
+                    }
+                }, sampleRate);
+
+                pressTimer = setTimeout(() => {
+                    successPress();
+                }, requiredTime);
+            }
+
+            function cancelPress() {
+                if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
+                if (progressInterval) { clearInterval(progressInterval); progressInterval = null; }
+
+                if (msgStage3.style.display !== 'block') {
+                    progressBar.style.width = '0%';
+                    progressBarContainer.style.display = 'none';
+                    btnHeartbeat.innerText = '💓 長按 3 秒';
+                }
+            }
+
+            function successPress() {
+                if (progressInterval) clearInterval(progressInterval);
+                pressTimer = null;
+                progressInterval = null;
+
+                btnHeartbeat.innerText = '💓 核心同步成功';
+                btnHeartbeat.style.background = '#ff4757';
+                btnHeartbeat.style.color = '#ffffff';
+                btnHeartbeat.disabled = true; 
+
+                msgStage3.style.display = 'block';
+                msgStage3.innerText = '如果妳有感覺到我的手很熱，那不是天氣，而是我的心跳得很快。';
+
+                setTimeout(() => {
+                    window.location.hash = '#stage4'; 
+                }, 3000);
+            }
+
+            btnHeartbeat.addEventListener('mousedown', startPress);
+            window.addEventListener('mouseup', cancelPress); 
+            btnHeartbeat.addEventListener('mouseleave', cancelPress);
+            btnHeartbeat.addEventListener('touchstart', startPress, {passive: false});
+            btnHeartbeat.addEventListener('touchend', cancelPress);
+            btnHeartbeat.addEventListener('touchcancel', cancelPress);
+
+            // ==========================================
+            // 畫面 4：生存遊戲 (Survival Game) 邏輯
+            // ==========================================
+            const formStage4 = document.getElementById('form-stage4');
+            const stage4DefaultImg = document.getElementById('stage4-default-img');
+            const stage4ResultImgContainer = document.getElementById('stage4-result-img-container');
+            const stage4ResultImg = document.getElementById('stage4-result-img');
+            const msgStage4 = document.getElementById('msg-stage4');
+            const btnSubmitStage4 = document.getElementById('btn-submit-stage4');
+            const btnNextStage5 = document.getElementById('btn-next-stage5');
+
+            formStage4.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const selected = document.querySelector('input[name="survival"]:checked');
+                if (!selected) {
+                    msgStage4.style.display = 'block';
+                    msgStage4.style.color = '#ffeb3b';
+                    msgStage4.innerText = '請先選擇一個求生選項！';
+                    return;
+                }
+
+                const choice = selected.value;
+
+                stage4DefaultImg.style.display = 'none';
+                stage4ResultImgContainer.style.display = 'block';
+
+                if (choice !== 'D') {
+                    sfxWrong.currentTime = 0; 
+                    sfxWrong.play();
+                }
+
+                if (choice === 'A') {
+                    stage4ResultImg.src = 'images/udumb.jpg'; 
+                    msgStage4.style.display = 'block';
+                    msgStage4.style.color = '#ff4757'; 
+                    msgStage4.innerText = '❌ IMMA punch u in ur FACE! U dumb🔨';
+                    btnNextStage5.style.display = 'none';
+                } 
+                else if (choice === 'B') {
+                    stage4ResultImg.src = 'images/chat.jpg'; 
+                    msgStage4.style.display = 'block';
+                    msgStage4.style.color = '#ff4757';
+                    msgStage4.innerText = '❌ FALSE！She starts endless chattering, nagging away, even flipping through the old chapters of your past life...🗣️';
+                    btnNextStage5.style.display = 'none';
+                } 
+                else if (choice === 'C') {
+                    stage4ResultImg.src = 'images/angry.jpg'; 
+                    msgStage4.style.display = 'block';
+                    msgStage4.style.color = '#ff4757';
+                    msgStage4.innerText = 'FUCK UPPP! She hid away in her room crying, and later got even madder at you for leaving her alone and not going in to comfort her...';
+                    btnNextStage5.style.display = 'none';
+                } 
+                else if (choice === 'D') {
+                    stage4ResultImg.src = 'images/foodie.jpg'; 
+                    msgStage4.style.display = 'block';
+                    msgStage4.style.color = '#4caf50'; 
+                    msgStage4.innerText = '🎉 正解！路邊好吃的食物就是唯一可以秒轉移注意力的方法！恭喜山姆又順利拯救世界，存活一天！';
+                    
+                    btnSubmitStage4.style.display = 'none';
+                    btnNextStage5.style.display = 'inline-block'; 
+                }
+            });
+
+            // ==========================================
+            // 畫面 5：禮物盒特效與語音播放控制
+            // ==========================================
+            const btnGift = document.getElementById('btn-gift');
+            const giftContainer = document.getElementById('gift-container');
+            const finalLetter = document.getElementById('final-letter');
+            const btnPlayVoice = document.getElementById('btn-play-voice');
+
+            setInterval(() => {
+                if(giftContainer.style.display !== 'none') {
+                    btnGift.style.transform = btnGift.style.transform === 'scale(1.1)' ? 'scale(1)' : 'scale(1.1)';
+                }
+            }, 800);
+
+            btnGift.addEventListener('click', function() {
+                btnGift.style.transform = 'scale(1.5)';
+                btnGift.style.opacity = '0';
+                
+                setTimeout(() => {
+                    giftContainer.style.display = 'none';
+                    finalLetter.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        finalLetter.style.opacity = '1';
+                    }, 50);
+                }, 300); 
+            });
+
+            btnPlayVoice.addEventListener('click', function() {
+                if (voiceMsg.paused) {
+                    bgm.volume = 0.1; 
+                    voiceMsg.play();
+                    btnPlayVoice.innerText = '⏸ 語音播放中... (點擊暫停)';
+                    btnPlayVoice.style.background = '#ff4757';
+                } else {
+                    voiceMsg.pause();
+                    bgm.volume = 0.5; 
+                    btnPlayVoice.innerText = '▶ 點擊聆聽專屬語音';
+                    btnPlayVoice.style.background = '';
+                }
+            });
+
+            voiceMsg.addEventListener('ended', function() {
+                bgm.volume = 0.5; 
+                btnPlayVoice.innerText = '▶ 點擊聆聽專屬語音';
+                btnPlayVoice.style.background = '';
+            });
+        </script>
+	</body>
+</html>
