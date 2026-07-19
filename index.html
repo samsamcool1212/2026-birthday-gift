@@ -30,7 +30,7 @@
                     padding: 1.5rem 1rem !important;
                 }
             }
-            /* 💡 英文副標題的專屬樣式：稍微縮小並半透明，降低視覺雜訊 */
+            /* 雙語副標題 */
             .en-sub {
                 display: block;
                 font-size: 0.85em;
@@ -38,6 +38,79 @@
                 margin-top: 5px;
                 font-weight: normal;
                 line-height: 1.4;
+            }
+
+            /* 第五關：互動祝福牆專屬 CSS */
+            .blessing-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+                gap: 15px;
+                margin-top: 25px;
+            }
+            .btn-blessing {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 15px 10px;
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.15);
+                border-radius: 10px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                color: #fff;
+                font-weight: bold;
+                line-height: 1.3;
+            }
+            .btn-blessing:hover {
+                background: rgba(255,255,255,0.15);
+                transform: translateY(-3px);
+            }
+            .btn-blessing.active {
+                background: #ff4757;
+                border-color: #ff4757;
+                animation: pulse 1.5s infinite;
+            }
+            @keyframes pulse {
+                0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+                70% { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+            }
+
+            /* 劇院模式影片彈出視窗 (Modal) */
+            .video-modal-overlay {
+                display: none;
+                position: fixed;
+                top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 10000;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .video-modal-content {
+                width: 90%;
+                max-width: 600px;
+                position: relative;
+            }
+            .video-modal-content video {
+                width: 100%;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                background: #000;
+            }
+            .btn-close-modal {
+                position: absolute;
+                top: -40px;
+                right: 0;
+                color: #fff;
+                font-size: 30px;
+                cursor: pointer;
+                background: none;
+                border: none;
+                padding: 0;
             }
         </style>
 	</head>
@@ -176,7 +249,7 @@
             </div>
         </article>
 
-        <!-- 畫面 5：終章與未來 -->
+        <!-- 畫面 5：終章與互動祝福牆 -->
         <article id="stage5">
             <h2 class="major">Mission Accomplished</h2>
             <div class="custom-img-container">
@@ -193,11 +266,50 @@
             </div>
 
             <div id="final-letter" style="display: none; opacity: 0; transition: opacity 1.5s ease-in-out;">
-                <div style="text-align: center; margin: 20px 0 40px 0;">
-                    <button id="btn-play-voice" class="primary icon solid fa-play" style="width: 100%; line-height: 1.4;">
-                        點擊聆聽專屬語音<br><span style="font-size:0.75em; opacity:0.9; font-weight:normal;">(Tap to listen to the exclusive voice message)</span>
-                    </button>
+                
+                <!-- 模組化祝福牆 (MUX 分流器) -->
+                <div style="margin: 20px 0 40px 0;">
+                    <h3 style="text-align: center; margin-bottom: 0;">來自宇宙的祝福訊號</h3>
+                    <p style="text-align: center; font-size: 0.85em; opacity: 0.8;">(Messages from the Universe - 點擊解鎖)</p>
+                    
+                    <div class="blessing-grid">
+                        <div class="btn-blessing" data-type="video" data-src="audio/mich.mp4">
+                            <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
+                            Mich 🧸
+                        </div>
+                        <div class="btn-blessing" data-type="video" data-src="audio/norway.mp4">
+                            <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
+                            norway 🇳🇴
+                        </div>
+                        <div class="btn-blessing" data-type="audio" data-src="audio/jiabao.aac">
+                            <span style="font-size: 1.5rem; margin-bottom: 5px;">🎵</span>
+                            jiabao 🤖
+                        </div>
+                        <!-- 💡 成功掛載的第四個節點 -->
+                        <div class="btn-blessing" data-type="video" data-src="audio/jie.mp4">
+                            <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
+                            JIE 🐶
+                        </div>
+                        
+                        <div class="btn-blessing" data-type="audio" data-src="audio/friend5.mp3">
+                            <span style="font-size: 1.5rem; margin-bottom: 5px;">🎵</span>
+                            朋友E的名字
+                        </div>
+                        <div class="btn-blessing" data-type="video" data-src="audio/friend6.mp4">
+                            <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
+                            朋友F的名字
+                        </div>
+                        <div class="btn-blessing" data-type="audio" data-src="audio/friend7.mp3">
+                            <span style="font-size: 1.5rem; margin-bottom: 5px;">🎵</span>
+                            朋友G的名字
+                        </div>
+                        <div class="btn-blessing" data-type="audio" data-src="audio/friend8.mp3">
+                            <span style="font-size: 1.5rem; margin-bottom: 5px;">🎵</span>
+                            朋友H的名字
+                        </div>
+                    </div>
                 </div>
+
                 <p>祝妳 20 歲生日快樂，也祝我們一週年快樂。
                    <span class="en-sub">(Happy 20th Birthday, and Happy 1st Anniversary to us.)</span>
                 </p>
@@ -214,11 +326,22 @@
 
 </div>
 
+<!-- 劇院模式影片彈出視窗 -->
+<div id="video-modal" class="video-modal-overlay">
+    <div class="video-modal-content">
+        <button id="close-modal" class="btn-close-modal">&times;</button>
+        <video id="modal-video-player" controls playsinline>
+            Your browser does not support HTML video.
+        </video>
+    </div>
+</div>
+
+<!-- 聲音資源區 -->
 <audio id="sfx-ultraman" src="audio/ultraman.mp3" preload="auto"></audio>
 <audio id="bgm" src="audio/bgm.mp3" loop preload="auto"></audio>
-<audio id="voice-msg" src="audio/voice.mp3" preload="auto"></audio>
 <audio id="sfx-wrong" src="audio/omgsry.mp3" preload="auto"></audio>
 <audio id="sfx-hello" src="audio/hello.mp3" preload="auto"></audio>
+<audio id="global-audio-player" style="display:none;"></audio>
 
 <div style="display:none;">
     <img src="images/hello.jpg" alt="preload" />
@@ -244,7 +367,6 @@
             // ==========================================
             const sfxUltraman = document.getElementById('sfx-ultraman');
             const bgm = document.getElementById('bgm'); 
-            const voiceMsg = document.getElementById('voice-msg');
             const sfxWrong = document.getElementById('sfx-wrong'); 
             const sfxHello = document.getElementById('sfx-hello'); 
             bgm.volume = 0.5; 
@@ -273,7 +395,6 @@
                 const msgEl = document.getElementById('msg-stage1');
                 stage1ErrorImg.style.display = 'none';
                 
-                // 💡 邏輯修正：將 innerText 替換為 innerHTML，才能正確渲染帶有 <span> 標籤的雙語文字！
                 if (inputVal.includes('nigga') || inputVal.includes('nigger')) {
                     sfxHello.currentTime = 0; 
                     sfxHello.play();
@@ -488,12 +609,18 @@
             });
 
             // ==========================================
-            // 畫面 5：禮物盒特效與語音播放控制
+            // 💡 畫面 5：互動祝福牆 (MUX 分流器與互斥鎖)
             // ==========================================
             const btnGift = document.getElementById('btn-gift');
             const giftContainer = document.getElementById('gift-container');
             const finalLetter = document.getElementById('final-letter');
-            const btnPlayVoice = document.getElementById('btn-play-voice');
+            
+            // 播放器元件定義
+            const globalAudioPlayer = document.getElementById('global-audio-player');
+            const videoModal = document.getElementById('video-modal');
+            const modalVideoPlayer = document.getElementById('modal-video-player');
+            const btnCloseModal = document.getElementById('close-modal');
+            const blessingBtns = document.querySelectorAll('.btn-blessing');
 
             setInterval(() => {
                 if(giftContainer.style.display !== 'none') {
@@ -504,35 +631,82 @@
             btnGift.addEventListener('click', function() {
                 btnGift.style.transform = 'scale(1.5)';
                 btnGift.style.opacity = '0';
-                
                 setTimeout(() => {
                     giftContainer.style.display = 'none';
                     finalLetter.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        finalLetter.style.opacity = '1';
-                    }, 50);
+                    setTimeout(() => { finalLetter.style.opacity = '1'; }, 50);
                 }, 300); 
             });
 
-            btnPlayVoice.addEventListener('click', function() {
-                if (voiceMsg.paused) {
+            function stopAllMedia() {
+                globalAudioPlayer.pause();
+                globalAudioPlayer.currentTime = 0;
+                modalVideoPlayer.pause();
+                modalVideoPlayer.currentTime = 0;
+                blessingBtns.forEach(btn => btn.classList.remove('active'));
+            }
+
+            blessingBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    const src = this.getAttribute('data-src');
+
+                    if (this.classList.contains('active')) {
+                        stopAllMedia();
+                        bgm.volume = 0.5;
+                        return;
+                    }
+
+                    stopAllMedia();
                     bgm.volume = 0.1; 
-                    voiceMsg.play();
-                    btnPlayVoice.innerHTML = '⏸ 語音播放中... (點擊暫停)<br><span style="font-size:0.75em; opacity:0.9; font-weight:normal;">(Playing voice message... tap to pause)</span>';
-                    btnPlayVoice.style.background = '#ff4757';
-                } else {
-                    voiceMsg.pause();
-                    bgm.volume = 0.5; 
-                    btnPlayVoice.innerHTML = '▶ 點擊聆聽專屬語音<br><span style="font-size:0.75em; opacity:0.9; font-weight:normal;">(Tap to listen to the exclusive voice message)</span>';
-                    btnPlayVoice.style.background = '';
+                    this.classList.add('active'); 
+
+                    if (type === 'video') {
+                        modalVideoPlayer.src = src;
+                        modalVideoPlayer.load(); 
+                        videoModal.style.display = 'flex';
+                        setTimeout(() => { videoModal.style.opacity = '1'; }, 10);
+                        
+                        let playPromise = modalVideoPlayer.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => { console.log("Auto-play prevented", error); });
+                        }
+                    } else if (type === 'audio') {
+                        globalAudioPlayer.src = src;
+                        globalAudioPlayer.load(); 
+                        globalAudioPlayer.play();
+                    }
+                });
+            });
+
+            btnCloseModal.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); 
+                closeVideoModal();
+            });
+
+            videoModal.addEventListener('click', function(e) {
+                e.stopPropagation(); 
+                if (e.target === videoModal) { 
+                    closeVideoModal();
                 }
             });
 
-            voiceMsg.addEventListener('ended', function() {
-                bgm.volume = 0.5; 
-                btnPlayVoice.innerHTML = '▶ 點擊聆聽專屬語音<br><span style="font-size:0.75em; opacity:0.9; font-weight:normal;">(Tap to listen to the exclusive voice message)</span>';
-                btnPlayVoice.style.background = '';
+            function closeVideoModal() {
+                videoModal.style.opacity = '0';
+                setTimeout(() => {
+                    videoModal.style.display = 'none';
+                    stopAllMedia();
+                    bgm.volume = 0.5; 
+                }, 300);
+            }
+
+            globalAudioPlayer.addEventListener('ended', function() {
+                stopAllMedia();
+                bgm.volume = 0.5;
+            });
+            modalVideoPlayer.addEventListener('ended', function() {
+                closeVideoModal();
             });
         </script>
 	</body>
