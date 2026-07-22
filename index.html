@@ -285,27 +285,32 @@
                             <span style="font-size: 1.5rem; margin-bottom: 5px;">🎵</span>
                             jiabao 🤖
                         </div>
-                        <!-- 💡 成功掛載的第四個節點 -->
                         <div class="btn-blessing" data-type="video" data-src="audio/jie.mp4">
                             <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
                             JIE 🐶
                         </div>
                         
-                        <div class="btn-blessing" data-type="audio" data-src="audio/friend5.mp3">
-                            <span style="font-size: 1.5rem; margin-bottom: 5px;">🎵</span>
-                            朋友E的名字
-                        </div>
-                        <div class="btn-blessing" data-type="video" data-src="audio/friend6.mp4">
+                        <!-- 💡 ami 與 uglymi 已經獨立分開，並重新對接無空白檔名 -->
+                        <div class="btn-blessing" data-type="video" data-src="audio/ami.mp4">
                             <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
-                            朋友F的名字
+                            ami 🍚
                         </div>
-                        <div class="btn-blessing" data-type="audio" data-src="audio/friend7.mp3">
-                            <span style="font-size: 1.5rem; margin-bottom: 5px;">🎵</span>
-                            朋友G的名字
+                        <div class="btn-blessing" data-type="video" data-src="audio/uglymi.mp4">
+                            <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
+                            uglymi 🍚
                         </div>
-                        <div class="btn-blessing" data-type="audio" data-src="audio/friend8.mp3">
+
+                        <div class="btn-blessing" data-type="video" data-src="audio/eric.mp4">
+                            <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
+                            eric 🇬🇧
+                        </div>
+                        <div class="btn-blessing" data-type="video" data-src="audio/kini.mp4">
+                            <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
+                            ㄎ一ㄋ一
+                        </div>
+                        <div class="btn-blessing" data-type="audio" data-src="audio/salt.m4a">
                             <span style="font-size: 1.5rem; margin-bottom: 5px;">🎵</span>
-                            朋友H的名字
+                            salt 🧂
                         </div>
                     </div>
                 </div>
@@ -339,7 +344,7 @@
 <!-- 聲音資源區 -->
 <audio id="sfx-ultraman" src="audio/ultraman.mp3" preload="auto"></audio>
 <audio id="bgm" src="audio/bgm.mp3" loop preload="auto"></audio>
-<audio id="sfx-wrong" src="audio/omgsry.mp3" preload="auto"></audio>
+<audio id="sfx-wrong" src="audio/Omgsry.mp3" preload="auto"></audio>
 <audio id="sfx-hello" src="audio/hello.mp3" preload="auto"></audio>
 <audio id="global-audio-player" style="display:none;"></audio>
 
@@ -662,15 +667,21 @@
                     this.classList.add('active'); 
 
                     if (type === 'video') {
+                        // 1. 先顯示 Modal 框架
+                        videoModal.style.display = 'flex';
+                        
+                        // 2. 設定來源並強制載入
                         modalVideoPlayer.src = src;
                         modalVideoPlayer.load(); 
-                        videoModal.style.display = 'flex';
-                        setTimeout(() => { videoModal.style.opacity = '1'; }, 10);
                         
+                        // 3. 在 Click 事件內立即觸發播放 (符合 iOS 規定)
                         let playPromise = modalVideoPlayer.play();
                         if (playPromise !== undefined) {
                             playPromise.catch(error => { console.log("Auto-play prevented", error); });
                         }
+                        
+                        // 4. 動畫漸顯
+                        setTimeout(() => { videoModal.style.opacity = '1'; }, 10);
                     } else if (type === 'audio') {
                         globalAudioPlayer.src = src;
                         globalAudioPlayer.load(); 
