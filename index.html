@@ -40,7 +40,7 @@
                 line-height: 1.4;
             }
 
-            /* 第五關：互動祝福牆專屬 CSS */
+            /* 最終關：互動祝福牆專屬 CSS */
             .blessing-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -238,7 +238,8 @@
                         </div>
                         <ul class="actions" style="margin-top: 20px;">
                             <li><button type="submit" class="primary" id="btn-submit-stage4">確認選擇 (Select)</button></li>
-                            <li><a href="#stage5" class="button primary" id="btn-next-stage5" style="display:none;">進入最終章 🚀 (Final Stage)</a></li>
+                            <!-- 💡 指向新的回憶膠囊頁面 -->
+                            <li><a href="#stage5" class="button primary" id="btn-next-stage5" style="display:none;">進入回憶膠囊 🎬 (Next)</a></li>
                         </ul>
                     </form>
                     <p id="msg-stage4" style="display:none; color: #ffeb3b; font-weight: bold; line-height: 1.5;"></p>
@@ -255,8 +256,27 @@
             </div>
         </article>
 
-        <!-- 畫面 5：終章與互動祝福牆 -->
+        <!-- 💡 畫面 5：獨立生日回顧影片 -->
         <article id="stage5">
+            <h2 class="major">Our Memories</h2>
+            <p>破關辛苦了！在領取最終獎勵前，先來看看我們的專屬回憶紀錄：
+               <span class="en-sub">(Great job clearing the game! Before claiming the final reward, let's look at our memory log:)</span>
+            </p>
+
+            <div class="custom-img-container" style="max-width: 100%;">
+                <video id="recap-video" controls playsinline style="width: 100%; border-radius: 8px; background: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                    <source src="audio/bdvideo.mp4" type="video/mp4">
+                    Your browser does not support HTML video.
+                </video>
+            </div>
+
+            <ul class="actions" style="margin-top: 30px;">
+                <li><a href="#stage6" class="button primary">進入最終章 🚀 (Final Stage)</a></li>
+            </ul>
+        </article>
+
+        <!-- 畫面 6：終章與互動祝福牆 -->
+        <article id="stage6">
             <h2 class="major">Mission Accomplished</h2>
             <div class="custom-img-container">
                 <img src="images/ultraman.jpg" alt="Ultraman Saved The World" />
@@ -301,7 +321,7 @@
                         </div>
                         <div class="btn-blessing" data-type="video" data-src="audio/uglymi.mp4">
                             <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
-                            uglymi 🍚
+                            ugly 米 🍚
                         </div>
                         <div class="btn-blessing" data-type="video" data-src="audio/eric.mp4">
                             <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
@@ -409,7 +429,6 @@
                     stage1ErrorImg.style.display = 'block';
                     msgEl.style.display = 'block';
                     msgEl.style.color = '#ff4757';
-                    // 💡 已更新為純英文的警告文字
                     msgEl.innerHTML = "really nigga? you're terrible";
                 }
                 else if (inputVal === 'hello') {
@@ -427,7 +446,7 @@
             });
 
             // ==========================================
-            // 畫面 2：妳愛我嗎？(力場防禦與雙語)
+            // 畫面 2：妳愛我嗎？(力場防禦與狀態解鎖器)
             // ==========================================
             const btnLoveYes = document.getElementById('btn-love-yes');
             const btnLoveNo = document.getElementById('btn-love-no');
@@ -469,8 +488,6 @@
 
             btnLoveYes.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // 💡 狀態解鎖器：如果她已經過關了，再次點擊會直接跳下一關，不會卡死
                 if (this.classList.contains('passed')) {
                     window.location.hash = '#stage3';
                     return;
@@ -478,7 +495,6 @@
 
                 btnNoWrapper.style.display = 'none'; 
                 this.classList.add('passed');
-                // 移除 disabled，改為提示點擊繼續
                 this.innerHTML = 'Me too! 🥰 (點擊繼續)';
                 msgLove.style.display = 'block';
                 msgLove.innerHTML = '就知道妳最愛我了，載入下一個回憶中... 🚀<span class="en-sub" style="color:rgba(76,175,80,0.8);">(I knew you loved me the most! Loading the next memory...)</span>';
@@ -489,7 +505,7 @@
             });
 
             // ==========================================
-            // 畫面 3：長按心跳 3 秒控制邏輯
+            // 畫面 3：長按心跳 3 秒 (狀態解鎖器)
             // ==========================================
             const btnHeartbeat = document.getElementById('btn-heartbeat');
             const progressBarContainer = document.getElementById('progress-bar-container');
@@ -504,8 +520,6 @@
 
             function startPress(e) {
                 if (e.type === 'touchstart') e.preventDefault();
-                
-                // 💡 狀態解鎖器：如果已通關，點擊直接跳下一關
                 if (btnHeartbeat.classList.contains('passed')) {
                     window.location.hash = '#stage4';
                     return;
@@ -537,7 +551,6 @@
                 if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
                 if (progressInterval) { clearInterval(progressInterval); progressInterval = null; }
 
-                // 只有在還沒通關的情況下，才恢復原本文字
                 if (!btnHeartbeat.classList.contains('passed')) {
                     progressBar.style.width = '0%';
                     progressBarContainer.style.display = 'none';
@@ -550,7 +563,6 @@
                 pressTimer = null;
                 progressInterval = null;
 
-                // 💡 狀態解鎖器：標記為 passed，不鎖死按鈕
                 btnHeartbeat.classList.add('passed');
                 btnHeartbeat.innerHTML = '💓 核心同步成功 (點擊繼續)<br><span style="font-size: 0.7em; font-weight: normal; opacity: 0.9;">(Sync Complete. Tap to continue)</span>';
                 btnHeartbeat.style.background = '#ff4757';
@@ -570,7 +582,7 @@
             btnHeartbeat.addEventListener('touchcancel', cancelPress);
 
             // ==========================================
-            // 畫面 4：生存遊戲 (Survival Game) 邏輯
+            // 畫面 4：生存遊戲 (Survival Game)
             // ==========================================
             const formStage4 = document.getElementById('form-stage4');
             const stage4DefaultImg = document.getElementById('stage4-default-img');
@@ -634,7 +646,21 @@
             });
 
             // ==========================================
-            // 💡 畫面 5：互動祝福牆 (純 Click 防幽靈穿透機制)
+            // 💡 畫面 5：回顧影片專屬 BGM 控制避讓電路
+            // ==========================================
+            const recapVideo = document.getElementById('recap-video');
+            recapVideo.addEventListener('play', function() {
+                bgm.volume = 0.1;
+            });
+            recapVideo.addEventListener('pause', function() {
+                bgm.volume = 0.5;
+            });
+            recapVideo.addEventListener('ended', function() {
+                bgm.volume = 0.5;
+            });
+
+            // ==========================================
+            // 畫面 6：互動祝福牆 (純 Click 防幽靈穿透機制)
             // ==========================================
             const btnGift = document.getElementById('btn-gift');
             const giftContainer = document.getElementById('gift-container');
@@ -668,6 +694,8 @@
                 globalAudioPlayer.currentTime = 0;
                 modalVideoPlayer.pause();
                 modalVideoPlayer.currentTime = 0;
+                // 新增：確保朋友播放時，生日回顧影片也被暫停
+                recapVideo.pause();
                 blessingBtns.forEach(btn => btn.classList.remove('active'));
             }
 
@@ -710,11 +738,20 @@
                 });
             });
 
-            // 💡 防穿透：僅保留 click 事件，全面剔除 touchend 避免重複觸發
-            btnCloseModal.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation(); 
-                closeVideoModal();
+            const preventTemplateClose = function(e) {
+                e.stopPropagation();
+            };
+            
+            ['click', 'touchstart', 'touchend', 'mousedown', 'mouseup'].forEach(evt => {
+                videoModal.addEventListener(evt, preventTemplateClose, { passive: false });
+            });
+
+            ['click', 'touchend'].forEach(evt => {
+                btnCloseModal.addEventListener(evt, function(e) {
+                    e.preventDefault();
+                    e.stopPropagation(); 
+                    closeVideoModal();
+                });
             });
 
             videoModal.addEventListener('click', function(e) {
@@ -725,7 +762,6 @@
                 }
             });
 
-            // 💡 新增：URL 監聽器，防止誤觸手機返回鍵導致卡死
             window.addEventListener('hashchange', function() {
                 if (videoModal.style.display !== 'none' && videoModal.style.opacity !== '0') {
                     closeVideoModal();
@@ -733,7 +769,7 @@
             });
 
             function closeVideoModal() {
-                if (videoModal.style.display === 'none') return; // 防連點重複觸發
+                if (videoModal.style.display === 'none') return; 
                 videoModal.style.opacity = '0';
                 setTimeout(() => {
                     videoModal.style.display = 'none';
