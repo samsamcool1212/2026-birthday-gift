@@ -238,7 +238,6 @@
                         </div>
                         <ul class="actions" style="margin-top: 20px;">
                             <li><button type="submit" class="primary" id="btn-submit-stage4">確認選擇 (Select)</button></li>
-                            <!-- 💡 指向新的回憶膠囊頁面 -->
                             <li><a href="#stage5" class="button primary" id="btn-next-stage5" style="display:none;">進入回憶膠囊 🎬 (Next)</a></li>
                         </ul>
                     </form>
@@ -256,7 +255,7 @@
             </div>
         </article>
 
-        <!-- 💡 畫面 5：獨立生日回顧影片 -->
+        <!-- 畫面 5：獨立生日回顧影片 -->
         <article id="stage5">
             <h2 class="major">Our Memories</h2>
             <p>破關辛苦了！在領取最終獎勵前，先來看看我們的專屬回憶紀錄：
@@ -364,10 +363,10 @@
     </div>
 </div>
 
-<!-- 聲音資源區 -->
+<!-- 聲音資源區：💡 已徹底修復為純小寫的 omgsry.mp3 -->
 <audio id="sfx-ultraman" src="audio/ultraman.mp3" preload="auto"></audio>
 <audio id="bgm" src="audio/bgm.mp3" loop preload="auto"></audio>
-<audio id="sfx-wrong" src="audio/Omgsry.mp3" preload="auto"></audio>
+<audio id="sfx-wrong" src="audio/omgsry.mp3" preload="auto"></audio>
 <audio id="sfx-hello" src="audio/hello.mp3" preload="auto"></audio>
 <audio id="global-audio-player" style="display:none;"></audio>
 
@@ -646,7 +645,7 @@
             });
 
             // ==========================================
-            // 💡 畫面 5：回顧影片專屬 BGM 控制避讓電路
+            // 畫面 5：回顧影片專屬 BGM 控制避讓電路
             // ==========================================
             const recapVideo = document.getElementById('recap-video');
             recapVideo.addEventListener('play', function() {
@@ -694,7 +693,6 @@
                 globalAudioPlayer.currentTime = 0;
                 modalVideoPlayer.pause();
                 modalVideoPlayer.currentTime = 0;
-                // 新增：確保朋友播放時，生日回顧影片也被暫停
                 recapVideo.pause();
                 blessingBtns.forEach(btn => btn.classList.remove('active'));
             }
