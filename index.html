@@ -152,8 +152,9 @@
                <span class="en-sub">(What's the key to our relationship? Starts with 'h' and ends with 'o', but it's not a hippo 🦛)</span>
             </p>
             
-            <div id="stage1-error-img-container" class="custom-img-container" style="display:none;">
-                <img src="images/hello.jpg" alt="Warning" />
+            <!-- 💡 這裡將用來顯示警告圖片或成功牽線的截圖 -->
+            <div id="stage1-img-container" class="custom-img-container" style="display:none;">
+                <img id="stage1-dynamic-img" src="images/hello.jpg" alt="Status Image" />
             </div>
 
             <form id="form-stage1">
@@ -363,7 +364,7 @@
     </div>
 </div>
 
-<!-- 聲音資源區：💡 已徹底修復為純小寫的 omgsry.mp3 -->
+<!-- 聲音資源區：💡 徹底修正為小寫 omgsry.mp3 -->
 <audio id="sfx-ultraman" src="audio/ultraman.mp3" preload="auto"></audio>
 <audio id="bgm" src="audio/bgm.mp3" loop preload="auto"></audio>
 <audio id="sfx-wrong" src="audio/omgsry.mp3" preload="auto"></audio>
@@ -371,7 +372,9 @@
 <audio id="global-audio-player" style="display:none;"></audio>
 
 <div style="display:none;">
+    <!-- 預載所有圖片避免延遲 -->
     <img src="images/hello.jpg" alt="preload" />
+    <img src="images/helloo.jpg" alt="preload" />
     <img src="images/mad.jpg" alt="preload" />
     <img src="images/udumb.jpg" alt="preload" />
     <img src="images/chat.jpg" alt="preload" />
@@ -411,32 +414,38 @@
             });
 
             // ==========================================
-            // 畫面 1：通關密語與禁詞過濾邏輯
+            // 畫面 1：通關密語與動態截圖顯示邏輯
             // ==========================================
             const formStage1 = document.getElementById('form-stage1');
-            const stage1ErrorImg = document.getElementById('stage1-error-img-container');
+            const stage1ImgContainer = document.getElementById('stage1-img-container');
+            const stage1DynamicImg = document.getElementById('stage1-dynamic-img');
 
             formStage1.addEventListener('submit', function(e) {
                 e.preventDefault(); 
                 const inputVal = document.getElementById('input-password').value.trim().toLowerCase();
                 const msgEl = document.getElementById('msg-stage1');
-                stage1ErrorImg.style.display = 'none';
+                stage1ImgContainer.style.display = 'none';
                 
                 if (inputVal.includes('nigga') || inputVal.includes('nigger')) {
                     sfxHello.currentTime = 0; 
                     sfxHello.play();
-                    stage1ErrorImg.style.display = 'block';
+                    stage1DynamicImg.src = 'images/hello.jpg';
+                    stage1ImgContainer.style.display = 'block';
                     msgEl.style.display = 'block';
                     msgEl.style.color = '#ff4757';
                     msgEl.innerHTML = "really nigga? you're terrible";
                 }
                 else if (inputVal === 'hello') {
+                    // 💡 成功牽線邏輯：顯示對話截圖，延長停留時間至 5.5 秒
+                    stage1DynamicImg.src = 'images/helloo.jpg';
+                    stage1ImgContainer.style.display = 'block';
                     msgEl.style.display = 'block';
                     msgEl.style.color = '#4caf50'; 
-                    msgEl.innerHTML = '誰也沒想到，那句練習英文的 Hello，最後會變成「我愛妳」。<span class="en-sub" style="color:rgba(76,175,80,0.8);">(Who would have thought that a simple "Hello" for practicing English would eventually turn into "I love you".)</span>';
+                    msgEl.innerHTML = '當初我們就是這樣牽起線的。<br>誰也沒想到，那句練習英文的 Hello，最後會變成「我愛妳」。<span class="en-sub" style="color:rgba(76,175,80,0.8);">(This is how we connected back then. Who would have thought that a simple "Hello" would eventually turn into "I love you".)</span>';
+                    
                     setTimeout(() => {
                         window.location.hash = '#stage2'; 
-                    }, 3000);
+                    }, 5500);
                 } else {
                     msgEl.style.display = 'block';
                     msgEl.style.color = '#ffeb3b';
