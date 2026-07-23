@@ -61,7 +61,7 @@
                 color: #fff;
                 font-weight: bold;
                 line-height: 1.3;
-                -webkit-tap-highlight-color: transparent; /* 消除手機點擊閃爍 */
+                -webkit-tap-highlight-color: transparent;
             }
             .btn-blessing:hover {
                 background: rgba(255,255,255,0.15);
@@ -103,7 +103,7 @@
                 background: #000;
             }
             
-            /* 💡 加大觸控範圍的完美版叉叉按鈕 */
+            /* 加大觸控範圍的叉叉按鈕 */
             .btn-close-modal {
                 position: absolute;
                 top: -50px;
@@ -141,7 +141,6 @@
         </nav>
     </header>
 
-    <!-- 💡 加上 ID 以便進行物理斷電防護 -->
     <div id="main" class="main-container">
 
         <!-- 畫面 1：改變一切的起點 -->
@@ -280,7 +279,6 @@
                     <p style="text-align: center; font-size: 0.85em; opacity: 0.8;">(Messages from the Universe - 點擊解鎖)</p>
                     
                     <div class="blessing-grid">
-                        <!-- 💡 完整 9 人豪華陣容對接 -->
                         <div class="btn-blessing" data-type="video" data-src="audio/mich.mp4">
                             <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
                             Mich 🧸
@@ -303,7 +301,7 @@
                         </div>
                         <div class="btn-blessing" data-type="video" data-src="audio/uglymi.mp4">
                             <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
-                            ugly 米 🍚
+                            uglymi 🍚
                         </div>
                         <div class="btn-blessing" data-type="video" data-src="audio/eric.mp4">
                             <span style="font-size: 1.5rem; margin-bottom: 5px;">▶️</span>
@@ -411,7 +409,8 @@
                     stage1ErrorImg.style.display = 'block';
                     msgEl.style.display = 'block';
                     msgEl.style.color = '#ff4757';
-                    msgEl.innerHTML = '為什麼可以開這種爛玩笑<span class="en-sub" style="color:rgba(255,71,87,0.8);">(Why would you make such a terrible joke?)</span>';
+                    // 💡 已更新為純英文的警告文字
+                    msgEl.innerHTML = "really nigga? you're terrible";
                 }
                 else if (inputVal === 'hello') {
                     msgEl.style.display = 'block';
@@ -470,9 +469,17 @@
 
             btnLoveYes.addEventListener('click', function(e) {
                 e.preventDefault();
+                
+                // 💡 狀態解鎖器：如果她已經過關了，再次點擊會直接跳下一關，不會卡死
+                if (this.classList.contains('passed')) {
+                    window.location.hash = '#stage3';
+                    return;
+                }
+
                 btnNoWrapper.style.display = 'none'; 
-                btnLoveYes.disabled = true;
-                btnLoveYes.innerHTML = 'Me too! 🥰';
+                this.classList.add('passed');
+                // 移除 disabled，改為提示點擊繼續
+                this.innerHTML = 'Me too! 🥰 (點擊繼續)';
                 msgLove.style.display = 'block';
                 msgLove.innerHTML = '就知道妳最愛我了，載入下一個回憶中... 🚀<span class="en-sub" style="color:rgba(76,175,80,0.8);">(I knew you loved me the most! Loading the next memory...)</span>';
                 
@@ -497,6 +504,12 @@
 
             function startPress(e) {
                 if (e.type === 'touchstart') e.preventDefault();
+                
+                // 💡 狀態解鎖器：如果已通關，點擊直接跳下一關
+                if (btnHeartbeat.classList.contains('passed')) {
+                    window.location.hash = '#stage4';
+                    return;
+                }
                 cancelPress();
 
                 progressBarContainer.style.display = 'block';
@@ -524,7 +537,8 @@
                 if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
                 if (progressInterval) { clearInterval(progressInterval); progressInterval = null; }
 
-                if (msgStage3.style.display !== 'block') {
+                // 只有在還沒通關的情況下，才恢復原本文字
+                if (!btnHeartbeat.classList.contains('passed')) {
                     progressBar.style.width = '0%';
                     progressBarContainer.style.display = 'none';
                     btnHeartbeat.innerHTML = '💓 長按 3 秒<br><span style="font-size: 0.7em; font-weight: normal; opacity: 0.9;">(Hold for 3 secs)</span>';
@@ -536,10 +550,11 @@
                 pressTimer = null;
                 progressInterval = null;
 
-                btnHeartbeat.innerHTML = '💓 核心同步成功<br><span style="font-size: 0.7em; font-weight: normal; opacity: 0.9;">(Sync Complete)</span>';
+                // 💡 狀態解鎖器：標記為 passed，不鎖死按鈕
+                btnHeartbeat.classList.add('passed');
+                btnHeartbeat.innerHTML = '💓 核心同步成功 (點擊繼續)<br><span style="font-size: 0.7em; font-weight: normal; opacity: 0.9;">(Sync Complete. Tap to continue)</span>';
                 btnHeartbeat.style.background = '#ff4757';
                 btnHeartbeat.style.color = '#ffffff';
-                btnHeartbeat.disabled = true; 
 
                 msgStage3.style.display = 'block';
                 msgStage3.innerHTML = '如果妳有感覺到我的手很熱，那不是天氣，而是我的心跳得很快。<span class="en-sub" style="color:rgba(255,235,59,0.8);">(If you felt my hands were hot, it wasn\'t the weather; it was because my heart was beating so fast.)</span>';
@@ -619,14 +634,13 @@
             });
 
             // ==========================================
-            // 💡 畫面 5：互動祝福牆 (MUX 分流器與防穿透互斥鎖)
+            // 💡 畫面 5：互動祝福牆 (純 Click 防幽靈穿透機制)
             // ==========================================
             const btnGift = document.getElementById('btn-gift');
             const giftContainer = document.getElementById('gift-container');
             const finalLetter = document.getElementById('final-letter');
             
-            // 播放器元件定義
-            const mainContainer = document.getElementById('main'); // 取得底層容器
+            const mainContainer = document.getElementById('main'); 
             const globalAudioPlayer = document.getElementById('global-audio-player');
             const videoModal = document.getElementById('video-modal');
             const modalVideoPlayer = document.getElementById('modal-video-player');
@@ -660,7 +674,8 @@
             blessingBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    e.stopPropagation(); // 阻止點擊按鈕時觸發背景
+                    e.stopPropagation(); 
+                    
                     const type = this.getAttribute('data-type');
                     const src = this.getAttribute('data-src');
 
@@ -675,7 +690,6 @@
                     this.classList.add('active'); 
 
                     if (type === 'video') {
-                        // 1. 物理斷電：禁止點擊底下的網頁
                         mainContainer.style.pointerEvents = 'none';
                         videoModal.style.display = 'flex';
                         
@@ -696,39 +710,36 @@
                 });
             });
 
-            // 💡 阻絕手機「幽靈點擊 (Ghost Click)」穿透的斷路器機制
-            const preventTemplateClose = function(e) {
-                e.stopPropagation();
-            };
-            
-            // 將所有可能穿透到 body 的觸控訊號全部攔截
-            ['click', 'touchstart', 'touchend', 'mousedown', 'mouseup'].forEach(evt => {
-                videoModal.addEventListener(evt, preventTemplateClose, { passive: false });
-            });
-
-            // 執行關閉指令 (綁定到按鈕與觸控釋放上)
-            ['click', 'touchend'].forEach(evt => {
-                btnCloseModal.addEventListener(evt, function(e) {
-                    e.preventDefault();
-                    e.stopPropagation(); 
-                    closeVideoModal();
-                });
+            // 💡 防穿透：僅保留 click 事件，全面剔除 touchend 避免重複觸發
+            btnCloseModal.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); 
+                closeVideoModal();
             });
 
             videoModal.addEventListener('click', function(e) {
                 if (e.target === videoModal) { 
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeVideoModal();
+                }
+            });
+
+            // 💡 新增：URL 監聽器，防止誤觸手機返回鍵導致卡死
+            window.addEventListener('hashchange', function() {
+                if (videoModal.style.display !== 'none' && videoModal.style.opacity !== '0') {
                     closeVideoModal();
                 }
             });
 
             function closeVideoModal() {
+                if (videoModal.style.display === 'none') return; // 防連點重複觸發
                 videoModal.style.opacity = '0';
                 setTimeout(() => {
                     videoModal.style.display = 'none';
-                    // 恢復底層通電
                     mainContainer.style.pointerEvents = 'auto'; 
                     stopAllMedia();
-                    modalVideoPlayer.removeAttribute('src'); // 徹底中斷背景加載
+                    modalVideoPlayer.removeAttribute('src'); 
                     modalVideoPlayer.load();
                     bgm.volume = 0.5; 
                 }, 300);
